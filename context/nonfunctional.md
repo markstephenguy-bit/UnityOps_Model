@@ -1,0 +1,4 @@
+- Availability (portal): 99.9% monthly; agent queue survives reboots.
+- Perf: P95 form submit < 2s server time; P95 portal page < 1.5s TTFB.
+- Security: MFA required for supervisors; least privilege by role.
+- Observability: Correlation ID end-to-end; audit log of field diffs.

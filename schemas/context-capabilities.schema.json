@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["version","areas"],
+  "properties":{
+    "version":{"type":"string"},
+    "areas":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "required":["id","name","status","responsibilities"],
+        "properties":{
+          "id":{"type":"string","pattern":"^[a-z0-9-]+$"},
+          "name":{"type":"string"},
+          "status":{"enum":["planned","in-progress","done"]},
+          "outcomes":{"type":"array","items":{"type":"string"}},
+          "responsibilities":{"type":"array","items":{"type":"string"}}
+        }
+      }
+    }
+  }
+}

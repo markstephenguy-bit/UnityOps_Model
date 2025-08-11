@@ -1,0 +1,3 @@
+- Branching: trunk-based; short-lived PRs; required checks: context-validate
+- Environments: dev, test, prod; change promotion via GitHub Envs
+- Releases: semver; context changes bump MINOR if capability scope changes

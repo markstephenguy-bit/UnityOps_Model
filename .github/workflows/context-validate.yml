@@ -1,0 +1,19 @@
+name: Context Validate
+on:
+  pull_request:
+    paths: [ "context/**", "schemas/**" ]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required files
+        run: |
+          REQUIRED=(vision.md principles.md constraints.md nonfunctional.md readiness-checklist.md capabilities.yaml)
+          for f in "${REQUIRED[@]}"; do
+            test -f "context/$f" || { echo "::error file=context/$f::missing"; exit 1; }
+          done
+      - name: Validate capabilities.yaml
+        run: |
+          npm i -g ajv-cli@5
+          ajv validate -s schemas/context-capabilities.schema.json -d context/capabilities.yaml

@@ -1,0 +1,4 @@
+- **Board**: Physical unit evaluated by QC.
+- **Sample**: Specific observation on a board or batch.
+- **Submission**: A QC record (the “form instance”).
+- **Downgrade reason**: Primary cause for lower grade (knot, wane, split…).
