@@ -1,0 +1,29 @@
+%%{init: {"theme":"default"}}%%
+%% If your renderer supports Mermaid C4 (C4Context), feel free to switch.
+%% We use standard flowchart for maximum compatibility.
+
+flowchart TB
+title: UnityOps – Level 1: System Context
+
+user(["Stakeholder / Operator"]):::person
+extMES([MES - Shop-floor Events]):::system
+extERP([ERP - Orders & Inventory]):::system
+extIDP([ID Provider - SSO/OIDC]):::system
+
+subgraph UnityOps Platform :::system
+ai([AI Orchestrator<br/>Chat + Agents]):::system
+bi([BI Layer<br/>Semantic Models & Dashboards]):::system
+qc([QC / Forms Service<br/>Validations & Data Capture]):::system
+bus([Internal Message Bus / Router]):::system
+end
+
+user -->|"Plan / Operate"| ai
+ai -->|"Queries / Models"| bi
+ai -->|"Generate forms / checks"| qc
+bi -->|"KPIs / Reports"| user
+qc -->|"Results / Exceptions"| bi
+bi <--->|Read/Write| extERP
+qc -->|Telemetry| extMES
+user -->|"SSO/OIDC"| extIDP
+classDef person stroke:#111,stroke-width:2,stroke-dasharray:3 3
+classDef system fill:#f5f5f5,stroke:#666,stroke-width:1.2

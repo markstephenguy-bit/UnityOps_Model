@@ -1,0 +1,41 @@
+%%{init: {"theme":"default"}}%%
+flowchart LR
+title: UnityOps – Level 2: Container Diagram
+
+subgraph Browser
+webUI["Blazor Server UI"]:::container
+end
+
+subgraph Backend
+api["ASP.NET API Service"]:::container
+orchestrator["AI Orchestrator (Chat + Agents)"]:::container
+router["Kong / Internal Router"]:::container
+events["Event Store (e.g., Kafka/Redpanda)"]:::container
+jobs["Worker Service (Windows Service)"]:::container
+end
+
+subgraph Data
+coldb["Columnar Warehouse (ClickHouse)"]:::container
+rdb["Relational DB (PostgreSQL)"]:::container
+obj["Object Storage (Artifacts)"]:::container
+end
+
+extMES([MES]):::system
+extERP([ERP]):::system
+extIDP([SSO/OIDC]):::system
+
+webUI --> api
+api --> orchestrator
+api --> router
+router <--> orchestrator
+orchestrator --> events
+jobs --> events
+api <--> rdb
+api <--> coldb
+api --> obj
+api -->|SSO| extIDP
+router <--> extMES
+api <--> extERP
+
+classDef container fill:#eef7ff,stroke:#246,stroke-width:1.5
+classDef system fill:#f5f5f5,stroke:#666,stroke-width:1.2

@@ -1,0 +1,37 @@
+name: Render C4 Diagrams
+on:
+  push:
+    paths:
+      - "docs/c4/*.mmd"
+      - ".github/workflows/render-diagrams.yml"
+  pull_request:
+    paths:
+      - "docs/c4/*.mmd"
+      - ".github/workflows/render-diagrams.yml"
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install mermaid-cli
+        run: npm -g install @mermaid-js/mermaid-cli
+      - name: Render PNG & SVG
+        run: |
+          mkdir -p docs/c4
+          for f in docs/c4/*.mmd; do
+            base=$(basename "$f" .mmd)
+            mmdc -i "$f" -o "docs/c4/${base}.png" -b transparent
+            mmdc -i "$f" -o "docs/c4/${base}.svg" -b transparent
+          done
+      - name: Upload diagrams
+        uses: actions/upload-artifact@v4
+        with:
+          name: c4-diagrams
+          path: |
+            docs/c4/*.png
+            docs/c4/*.svg
