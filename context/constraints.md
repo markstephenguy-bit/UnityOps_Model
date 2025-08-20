@@ -1,4 +1,0 @@
-- Platform: .NET 8, Blazor Server for portal, Windows service/agent.
-- Cloud: Azure App Service, Postgres Flexible Server, Blob, Event Hubs, Key Vault.
-- Security: Entra ID auth; PHI/PII not stored (current scope).
-- Budget: <$X/month for dev+test combined (set exact in roadmap.md).
