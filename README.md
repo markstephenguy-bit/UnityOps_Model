@@ -1,70 +1,32 @@
-Here’s a clean **root `README.md`** you can drop in so the GitHub landing page clearly explains **UnityOps\_Model**.
+# UnityOps Model – Architecture as Code
 
----
+This repo stores the **official software architecture** for UnityOps using **Architecture as Code (AaC)**.
 
-```markdown
-# UnityOps_Model
+## What’s here
+- **C4 diagrams** (Mermaid) in `docs/c4`
+- **Architecture Decision Records (ADRs)** in `docs/adr`
+- **Non‑functional requirements** in `docs/non-functional-requirements.md`
+- **Glossary** in `docs/glossary.md`
+- **CI** renders diagrams on every push and uploads them as build artifacts
 
-**UnityOps_Model** is the **context repository** for the UnityOps system.  
-It is the single source of truth for *what* we are building and *why* — before any code, infrastructure, or DSL modeling.
+## Edit flow
+1) Propose changes in a branch.
+2) Update C4 Mermaid files and/or ADRs.
+3) Run PR; CI will render and attach **PNG/SVG** of every diagram.
+4) Review diffs (text + rendered diagrams). Merge when approved.
 
----
-
-## 📜 Purpose
-- Capture the **vision**, **principles**, and **constraints** that guide UnityOps.
-- Define **capabilities**, **personas**, and **use cases** in business terms.
-- Establish **non-functional requirements** (NFRs) and **success metrics**.
-- Maintain a **governance trail** through ADRs and readiness checklists.
-
-This repo contains **no application code**. It exists to keep design and implementation aligned with the agreed business context.
-
----
-
-## 📂 Structure
+## Local preview (optional)
+```bash
+# Requires Node 18+
+npm -g install @mermaid-js/mermaid-cli
+mmdc -i docs/c4/01-context.mmd -o docs/c4/01-context.png
 ```
 
-/context/                # Vision, principles, capabilities, use-cases, domain language
-/context/use-cases/      # Business scenarios in Gherkin + acceptance criteria
-/context/domain/         # Ubiquitous language and bounded contexts
-/adr/                    # Architecture Decision Records
-/schemas/                # JSON Schema for machine-validating context files
-/.github/workflows/      # CI jobs for context validation
+## Files of interest
 
-```
-
----
-
-## 🚦 Workflow
-1. **Draft Context** → Fill out `context/` files for a use case.
-2. **Validate** → PR triggers CI to check file completeness + schema compliance.
-3. **Review & Approve** → Merge when readiness checklist is ✅.
-4. **Gate** → Only after a use case is “Context Ready” can model framework (DSL) work begin.
-
----
-
-## ✅ Readiness Checklist (per use case)
-- Vision & measurable outcomes defined
-- Persona & scenarios written
-- Capability marked as “approved”
-- Principles & constraints reviewed
-- NFRs & risks documented
-- ADR(s) added if needed
-
-See [`context/readiness-checklist.md`](context/readiness-checklist.md) for details.
-
----
-
-## 🗂 Related Repositories
-- **UnityOps** — Application code (portal, API, agent)
-- **UnityOps_Infrastructure** — Bicep/IaC definitions
-- **UnityOps_Model** *(this repo)* — Context and business model
-
----
-
-## 📄 License
-[MIT License](LICENSE) — unless otherwise stated in individual files.
-```
-
----
-
-Do you want me to also add a **short “About” description** for the GitHub sidebar so it shows up next to the repo name? That way people see the purpose even without opening the README.
+* `docs/c4/01-context.mmd` – System Context (L1)
+* `docs/c4/02-container.mmd` – Containers (L2)
+* `docs/c4/03-component-example.mmd` – Component example (L3)
+* `docs/adr/0000-template.md` – ADR template
+* `docs/adr/0001-adopt-architecture-as-code.md`
+* `docs/adr/0002-choose-c4-mermaid.md`

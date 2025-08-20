@@ -1,0 +1,20 @@
+%%{init: {"theme":"default"}}%%
+flowchart TB
+title: UnityOps – Level 3: Component View (API Service)
+
+subgraph API Service :::container
+ctrl["Controllers"]:::component
+svc["Application Services"]:::component
+repo["Repositories"]:::component
+pol["Policy/Authorization"]:::component
+dto["DTO / Contracts"]:::component
+end
+
+svc --> repo
+ctrl --> svc
+ctrl --> pol
+repo --> rdb[(PostgreSQL)]
+repo --> ch[(ClickHouse)]
+svc --> bus[(Message Bus)]
+classDef component fill:#fef7e0,stroke:#864,stroke-width:1.2
+classDef container fill:#eef7ff,stroke:#246,stroke-width:1.5

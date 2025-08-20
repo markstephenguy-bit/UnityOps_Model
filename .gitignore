@@ -1,0 +1,10 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+# Node (for mermaid-cli in CI if run locally)
+node_modules/
+# Build artifacts (we upload from CI instead of committing)
+docs/c4/*.png
+docs/c4/*.svg
